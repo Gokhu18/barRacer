@@ -2,8 +2,4 @@
 
 export("%>%")
 export(bar_chart_race)
-import(dplyr)
-import(gganimate)
-import(ggplot2)
-import(scales)
 importFrom(magrittr,"%>%")

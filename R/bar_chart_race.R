@@ -13,53 +13,48 @@
 #' @param title The title of the animation (defaults to blank).
 #' @return A bar chart race animation.
 #' @export
-#' @import dplyr
-#' @import ggplot2
-#' @import gganimate
-#' @importFrom magrittr %>%
-#' @import scales
 bar_chart_race <- function(df, cat_col, val_col, time_col,
                            max_bars = 10, duration = 20, fps = 10,
                           width = 1200, height = 900,
                           title = "") {
   
   # gap between labels and end of bar
-  nudge <- max(df %>% pull({{val_col}})) / 50
+  nudge <- max(df %>% dplyr::pull({{val_col}})) / 50
   # space for category labels on the left
-  shift <- max(df %>% pull({{val_col}})) / 5
+  shift <- max(df %>% dplyr::pull({{val_col}})) / 5
   # space for value labels on the right
-  extend <- max(df %>% pull({{val_col}})) * 1.07
+  extend <- max(df %>% dplyr::pull({{val_col}})) * 1.07
 
   p <- df %>%
-    group_by({{time_col}}) %>%
-    mutate(rank = min_rank(-{{val_col}})*1) %>%
-    filter(rank <= max_bars) %>%
-    ungroup() %>%
-    ggplot(aes(x = rank, y = {{val_col}}, fill = {{cat_col}})) +
-    geom_tile(aes(y = {{val_col}}/2, height = {{val_col}}),
-              show.legend = FALSE, width = 0.9) +
-    geom_text(aes(label = {{cat_col}}), hjust = "right",
-              fontface = "bold", nudge_y = -nudge, size = 6) +
-    geom_text(aes(label = scales::comma(round({{val_col}}))), hjust = "left",
-              nudge_y = nudge, colour = "grey30", size = 5) +
-    scale_y_continuous("", labels = scales::comma, limits = c(-shift, extend)) +
-    scale_x_reverse("") +
-    coord_flip(clip = "off") +
-    theme_minimal() +
-    theme(panel.grid.major.y = element_blank(),
-          panel.grid.minor.x = element_blank(),
-          axis.text.y = element_blank(),
-          text = element_text(size = 20),
-          plot.title = element_text(size = 32, face = "bold"),
-          plot.subtitle = element_text(size = 24)) +
-    transition_time({{time_col}}) +
-    ease_aes("cubic-in-out") +
-    enter_fly(x_loc = -(max_bars + 2)) +
-    exit_fly(x_loc = -(max_bars + 2)) +
-    labs(title = title,
-         subtitle = "{round(frame_time)}")
+    dplyr::group_by({{time_col}}) %>%
+    dplyr::mutate(rank = dplyr::min_rank(-{{val_col}})*1) %>%
+    dplyr::filter(rank <= max_bars) %>%
+    dplyr::ungroup() %>%
+    ggplot2::ggplot(ggplot2::aes(x = rank, y = {{val_col}}, fill = {{cat_col}})) +
+    ggplot2::geom_tile(ggplot2::aes(y = {{val_col}}/2, height = {{val_col}}),
+                       show.legend = FALSE, width = 0.9) +
+    ggplot2::geom_text(ggplot2::aes(label = {{cat_col}}), hjust = "right",
+                       fontface = "bold", nudge_y = -nudge, size = 6) +
+    ggplot2::geom_text(ggplot2::aes(label = scales::comma(round({{val_col}}))), hjust = "left",
+                       nudge_y = nudge, colour = "grey30", size = 5) +
+    ggplot2::scale_y_continuous("", labels = scales::comma, limits = c(-shift, extend)) +
+    ggplot2::scale_x_reverse("") +
+    ggplot2::coord_flip(clip = "off") +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(panel.grid.major.y = ggplot2::element_blank(),
+                    panel.grid.minor.x = ggplot2::element_blank(),
+                    axis.text.y = ggplot2::element_blank(),
+                    text = ggplot2::element_text(size = 20),
+                    plot.title = ggplot2::element_text(size = 32, face = "bold"),
+                    plot.subtitle = ggplot2::element_text(size = 24)) +
+    gganimate::transition_time({{time_col}}) +
+    gganimate::ease_aes("cubic-in-out") +
+    gganimate::enter_fly(x_loc = -(max_bars + 2)) +
+    gganimate::exit_fly(x_loc = -(max_bars + 2)) +
+    ggplot2::labs(title = title,
+                  subtitle = "{round(frame_time)}")
 
-  animate(p, duration = duration, fps = fps,
+  gganimate::animate(p, duration = duration, fps = fps,
           end_pause = 50,
           width = width, height = height)
 }
