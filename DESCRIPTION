@@ -1,0 +1,21 @@
+Package: barRacer
+Title: Create Bar Chart Race Animations
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Jamie",
+           family = "Lendrum",
+           role = c("aut", "cre"),
+           email = "jalendrum@gmail.com")
+Description: A wrapper for ggplot2 and gganimate to create bar chart race animations.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    ggplot2,
+    gganimate,
+    magrittr,
+    scales
+Suggests:
+    gapminder
+RoxygenNote: 6.1.1
