@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# barRacer
+# barRacer <img src='man/figures/logo.png' align="right" height="138" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -26,12 +26,13 @@ This package is not yet on CRAN.
 
 You can install the development version of barRacer from [GitHub](https://github.com/) with:
 
-``` r
+```{r, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("jl5000/barRacer")
 ```
-## Example
 
+## Example
+  
 This simple example uses the `gapminder` dataset:
 
 ```{r example}

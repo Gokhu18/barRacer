@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# barRacer
+# barRacer <img src='man/figures/logo.png' align="right" height="138" />
 
 <!-- badges: start -->
 
