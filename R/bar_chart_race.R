@@ -25,11 +25,16 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
   # space for value labels on the right
   extend <- max(df %>% dplyr::pull({{val_col}})) * 1.07
 
-  p <- df %>%
+  df <- df %>% 
     dplyr::group_by({{time_col}}) %>%
     dplyr::mutate(rank = dplyr::min_rank(-{{val_col}})*1) %>%
     dplyr::filter(rank <= max_bars) %>%
-    dplyr::ungroup() %>%
+    dplyr::ungroup()
+  
+  df <- df
+    
+  
+  p <- df %>%
     ggplot2::ggplot(ggplot2::aes(x = rank, y = {{val_col}}, fill = {{cat_col}})) +
     ggplot2::geom_tile(ggplot2::aes(y = {{val_col}}/2, height = {{val_col}}),
                        show.legend = FALSE, width = 0.9) +
@@ -47,12 +52,12 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
                     text = ggplot2::element_text(size = 20),
                     plot.title = ggplot2::element_text(size = 32, face = "bold"),
                     plot.subtitle = ggplot2::element_text(size = 24)) +
-    gganimate::transition_time({{time_col}}) +
-    gganimate::ease_aes("cubic-in-out") +
-    gganimate::enter_fly(x_loc = -(max_bars + 2)) +
-    gganimate::exit_fly(x_loc = -(max_bars + 2)) +
+    gganimate::transition_states({{time_col}}, transition_length = 1, state_length = 0) +
+    gganimate::ease_aes("linear") +
+    gganimate::enter_fly(x_loc = -(max_bars + 4)) +
+    gganimate::exit_fly(x_loc = -(max_bars + 4)) +
     ggplot2::labs(title = title,
-                  subtitle = "{round(frame_time)}")
+                  subtitle = "{(closest_state)}")
 
   gganimate::animate(p, duration = duration, fps = fps,
           end_pause = 50,
