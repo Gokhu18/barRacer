@@ -15,7 +15,8 @@ Imports:
     ggplot2,
     gganimate,
     magrittr,
-    scales
+    scales,
+    tidyr
 Suggests:
     gapminder
 RoxygenNote: 6.1.1
