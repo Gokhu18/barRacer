@@ -16,7 +16,9 @@ Imports:
     gganimate,
     magrittr,
     scales,
-    tidyr
+    tidyr,
+    rlang (>= 0.1.2)
 Suggests:
-    gapminder
+    gapminder,
+    roxygen2
 RoxygenNote: 6.1.1

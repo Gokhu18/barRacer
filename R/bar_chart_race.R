@@ -18,9 +18,6 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
                           width = 1200, height = 900,
                           title = "") {
   
-  #check data types
-  #if(!is.numeric({{val_col}}))
-  
   # gap between labels and end of bar
   nudge <- max(df %>% dplyr::pull({{val_col}})) / 50
   # space for category labels on the left
@@ -34,22 +31,22 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
     # this is a workaround as {{}} gives errors in full_seq below
     dplyr::mutate(new_time = {{time_col}}) %>% 
     tidyr::complete(new_time = tidyr::full_seq(new_time, 1)) %>%
-    dplyr::mutate(new_val = spline(x = new_time, y = {{val_col}}, xout = new_time)$y) %>%
+    dplyr::mutate(new_val = stats::spline(x = new_time, y = {{val_col}}, xout = new_time)$y) %>%
     dplyr::group_by(new_time) %>%
     dplyr::mutate(rank = dplyr::min_rank(-new_val)*1) %>%
     dplyr::filter(rank <= max_bars) %>%
     dplyr::ungroup()
   
-  
-  # interpolate between finer time values for smoother transitions
+    # interpolate between finer time values for smoother transitions
   df <- df %>% 
     dplyr::group_by({{cat_col}}) %>%
     tidyr::complete(new_time = tidyr::full_seq(new_time, 0.5)) %>%
-    dplyr::mutate(new_val = spline(x = new_time, y = new_val, xout = new_time)$y) %>%
+    dplyr::mutate(new_val = stats::spline(x = new_time, y = new_val, xout = new_time)$y) %>%
     # "approx" below for linear interpolation. "spline" has a bouncy effect.
-    dplyr::mutate(rank = approx(x = new_time, y = rank, xout = new_time)$y) %>%
+    dplyr::mutate(rank = stats::approx(x = new_time, y = rank, xout = new_time)$y) %>%
     dplyr::ungroup()
-    
+
+
   p <- df %>%
     ggplot2::ggplot(ggplot2::aes(x = rank, y = new_val, fill = {{cat_col}})) +
     ggplot2::geom_tile(ggplot2::aes(y = new_val/2, height = new_val),
@@ -73,7 +70,7 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
     gganimate::enter_fly(x_loc = -(max_bars + 4)) +
     gganimate::exit_fly(x_loc = -(max_bars + 4)) +
     ggplot2::labs(title = title,
-                  subtitle = "{(closest_state)}")
+                  subtitle = "{round(closest_state)}")
 
   gganimate::animate(p, duration = duration, fps = fps,
           end_pause = 50,
