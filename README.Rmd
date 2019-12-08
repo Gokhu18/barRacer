@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # barRacer <img src='man/figures/logo.png' align="right" height="138" />
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/jl5000/barRacer.svg?branch=master)](https://travis-ci.org/jl5000/barRacer)
 <!-- badges: end -->
 
 The goal of barRacer is to provide a simple function to generate bar chart race animations using `ggplot2` and `gganimate`.
