@@ -2,7 +2,7 @@
 
 language: R
 cache: packages
-warnings_are_errors: true
+warnings_are_errors: true 
 
 os:
   - linux
@@ -10,5 +10,5 @@ os:
   
 r:
   - release
-  - oldrelease
+  - oldrel
   - devel
