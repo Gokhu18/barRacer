@@ -20,5 +20,6 @@ Imports:
     rlang (>= 0.1.2)
 Suggests:
     gapminder,
-    roxygen2
+    roxygen2,
+    testthat (>= 2.1.0)
 RoxygenNote: 6.1.1
