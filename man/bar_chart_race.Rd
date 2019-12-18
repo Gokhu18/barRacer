@@ -4,9 +4,18 @@
 \alias{bar_chart_race}
 \title{Create a bar chart race animation.}
 \usage{
-bar_chart_race(df, cat_col, val_col, time_col, max_bars = 10,
-  duration = 20, fps = 10, width = 1200, height = 900,
-  title = "")
+bar_chart_race(
+  df,
+  cat_col,
+  val_col,
+  time_col,
+  max_bars = 10,
+  duration = 20,
+  fps = 10,
+  width = 1200,
+  height = 900,
+  title = ""
+)
 }
 \arguments{
 \item{df}{A dataframe containing the data.}
