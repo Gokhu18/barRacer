@@ -66,12 +66,13 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
 
 #' Title
 #'
-#' @param df A dataframe containing the data
-#' @param cat_col 
-#' @param val_col 
-#' @param time_col 
+#' @param df A dataframe containing the data.
+#' @param cat_col The column containing the categories (for bars).
+#' @param val_col The column containing the values (for bar heights).
+#' @param time_col The column containing the time.
 #'
-#' @return
+#' @return A modified dataframe where missing times have been inserted 
+#'   and values have been interpolated for each category.
 #' @export
 fill_missing_times <- function(df, cat_col, val_col, time_col) {
   
@@ -85,10 +86,10 @@ fill_missing_times <- function(df, cat_col, val_col, time_col) {
 
 #' Title
 #'
-#' @param df A dataframe containing the data
-#' @param val_col 
-#' @param time_col 
-#' @param max_bars 
+#' @param df A dataframe containing the data.
+#' @param val_col The column containing the values (for bar heights).
+#' @param time_col The column containing the time.
+#' @param max_bars The maximum number of bars to show.
 #'
 #' @return
 #' @export
@@ -104,10 +105,10 @@ filter_top_ranks <- function(df, val_col, time_col, max_bars) {
 
 #' Title
 #'
-#' @param df A dataframe containing the data
-#' @param cat_col 
-#' @param val_col 
-#' @param time_col 
+#' @param df A dataframe containing the data.
+#' @param cat_col The column containing the categories (for bars).
+#' @param val_col The column containing the values (for bar heights).
+#' @param time_col The column containing the time.
 #'
 #' @return
 #' @export
