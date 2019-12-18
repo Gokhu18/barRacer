@@ -64,7 +64,7 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
 }
 
 
-#' Title
+#' Fill implicitly missing times in a dataframe.
 #'
 #' @param df A dataframe containing the data.
 #' @param cat_col The column containing the categories (for bars).
@@ -84,14 +84,15 @@ fill_missing_times <- function(df, cat_col, val_col, time_col) {
   
 }
 
-#' Title
+#' Filter a dataframe for only the top ranked observations.
 #'
 #' @param df A dataframe containing the data.
 #' @param val_col The column containing the values (for bar heights).
 #' @param time_col The column containing the time.
 #' @param max_bars The maximum number of bars to show.
 #'
-#' @return
+#' @return A modified dataframe where only the top ranked observations 
+#'   for each time step are retained (with the addition of a .rank column).
 #' @export
 filter_top_ranks <- function(df, val_col, time_col, max_bars) {
 
@@ -103,14 +104,15 @@ filter_top_ranks <- function(df, val_col, time_col, max_bars) {
   
 }
 
-#' Title
+#' Insert additional time steps into a dataframe.
 #'
 #' @param df A dataframe containing the data.
 #' @param cat_col The column containing the categories (for bars).
 #' @param val_col The column containing the values (for bar heights).
 #' @param time_col The column containing the time.
 #'
-#' @return
+#' @return A modified dataframe where additional times have been inserted 
+#'   and values have been interpolated for each category.
 #' @export
 tween_more_times <- function(df, cat_col, val_col, time_col) {
   
@@ -121,6 +123,5 @@ tween_more_times <- function(df, cat_col, val_col, time_col) {
     # "approx" below for linear interpolation. "spline" has a bouncy effect.
     dplyr::mutate(.rank = stats::approx(x = {{time_col}}, y = .rank, xout = {{time_col}})$y) %>%
     dplyr::ungroup()
-  
   
 }
