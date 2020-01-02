@@ -110,15 +110,17 @@ filter_top_ranks <- function(df, val_col, time_col, max_bars) {
 #' @param cat_col The column containing the categories (for bars).
 #' @param val_col The column containing the values (for bar heights).
 #' @param time_col The column containing the time.
+#' @param mult A multiplier which says how many more observations you want 
+#'   (e.g. a value of 2 will double the number of observations)
 #'
 #' @return A modified dataframe where additional times have been inserted 
 #'   and values have been interpolated for each category.
 #' @export
-tween_more_times <- function(df, cat_col, val_col, time_col) {
+tween_more_times <- function(df, cat_col, val_col, time_col, mult = 2) {
   
   df %>% 
     dplyr::group_by({{cat_col}}) %>%
-    tidyr::complete({{time_col}} := tidyr::full_seq({{time_col}}, 0.5)) %>%
+    tidyr::complete({{time_col}} := tidyr::full_seq({{time_col}}, 1/mult)) %>%
     dplyr::mutate({{val_col}} := stats::spline(x = {{time_col}}, y = {{val_col}}, xout = {{time_col}})$y) %>%
     # "approx" below for linear interpolation. "spline" has a bouncy effect.
     dplyr::mutate(.rank = stats::approx(x = {{time_col}}, y = .rank, xout = {{time_col}})$y) %>%
