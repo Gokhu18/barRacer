@@ -14,3 +14,7 @@ r:
   - devel
 
 
+jobs:
+  exclude:
+  - os: osx
+    r: devel
