@@ -59,3 +59,5 @@ bar_chart_race <- function(df, cat_col, val_col, time_col,
           width = width, height = height)
 }
 
+
+
