@@ -11,4 +11,10 @@ os:
 r:
   - release
   - oldrel
+  - devel
 
+
+jobs:
+  exclude:
+  - os: osx
+    r: devel
