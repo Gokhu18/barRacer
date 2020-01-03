@@ -39,6 +39,15 @@ bar_chart_race(gapminder::gapminder, country, pop, year, title = "Population ove
 
 <img src="man/figures/README-example-1.gif" width="100%" />
 
+## Acknowledgements
+
+  - Hadley Wickham for the [`tidyverse`](https://www.tidyverse.org/)
+    (including `ggplot2`);
+  - Thomas Lin Pedersen for
+    [`gganimate`](https://gganimate.com/index.html);
+  - Ray Larabie ([Typodermic Fonts](http://typodermicfonts.com)) for the
+    *Hemi Head* font used in the hex logo.
+
 ## Feedback
 
 If you have any issues or feedback, please do raise a Github Issue or

@@ -44,6 +44,12 @@ library(barRacer)
 bar_chart_race(gapminder::gapminder, country, pop, year, title = "Population over time")
 ```
 
+## Acknowledgements
+
+* Hadley Wickham for the [`tidyverse`](https://www.tidyverse.org/) (including `ggplot2`);
+* Thomas Lin Pedersen for [`gganimate`](https://gganimate.com/index.html);
+* Ray Larabie ([Typodermic Fonts](http://typodermicfonts.com)) for the *Hemi Head* font used in the hex logo.
+
 ## Feedback
 
 If you have any issues or feedback, please do raise a Github Issue or create a Pull Request. All donations gratefully received.
